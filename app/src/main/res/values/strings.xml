@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name" translatable="false">Quest</string>
+    <string name="title_text" translatable="false">Найди мину!</string>
+    <string name="true_button" translatable="false">Да</string>
+    <string name="false_button" translatable="false">Нет</string>
+    <string name="correct_toast" translatable="false">Желаю успеха в дальнейшем изучении Android</string>
+    <string name="incorrect_toast" translatable="false">Спасибо за использование платформы Android</string>
+
+
+</resources>
