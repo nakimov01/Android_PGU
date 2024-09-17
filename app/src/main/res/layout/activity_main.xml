@@ -1,142 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#540254"
-    tools:context=".MainActivity">
+    android:background="#4b004e"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/title_text"
+        android:textColor="#FFFFFF"
+        android:textSize="32dp" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:columnCount="3"
+        android:gravity="center"
+        android:padding="5dp"
+        android:rowCount="3">
+
+        <!-- Ячейки -->
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="15dp"
+            android:background="#9b5b9b" />
 
         <TextView
-            android:id="@+id/main_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:padding="16dp"
-            android:text="@string/title_text"
-            android:textColor="@color/white"
-            android:textSize="27sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="15dp"
+            android:background="#a46fa4" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="15dp"
+            android:background="#9b5b9b" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="15dp"
+            android:background="#a46fa4" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="15dp"
+            android:background="#9b5b9b" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="15dp"
+            android:background="#a46fa4" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="15dp"
+            android:background="#9b5b9b" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="15dp"
+            android:background="#a46fa4" />
+
+        <TextView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="15dp"
+            android:background="#9b5b9b" />
+    </GridLayout>
+
+    <Button
+        android:id="@+id/developerNikita"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:padding="16dp"
+        android:text="Разработчик 1"
+        android:textColor="#4b004e"
+        android:textSize="24sp"
+        app:cornerRadius="0dp" />
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="65dp"
-            android:layout_marginTop="20dp"
-            android:background="#98669b"
-            android:text="-"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/developerSasha"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:padding="16dp"
+        android:text="Разработчик 2"
+        android:textColor="#4b004e"
+        android:textSize="24sp"
+        app:cornerRadius="0dp"
+        tools:ignore="TextContrastCheck" />
 
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="#9A669D"
-            android:text="-"
-            app:layout_constraintStart_toStartOf="@+id/button6"
-            app:layout_constraintTop_toBottomOf="@+id/button6" />
+    <Button
+        android:id="@+id/developerMax"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:padding="16dp"
+        android:text="Разработчик 3"
+        android:textColor="#4b004e"
+        android:textSize="24sp"
+        app:cornerRadius="0dp"
+        tools:ignore="TextContrastCheck" />
 
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background"
-            android:text="-"
-            app:layout_constraintStart_toStartOf="@+id/button5"
-            app:layout_constraintTop_toBottomOf="@+id/button5" />
-
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_weight="1"
-            android:background="#98669b"
-            android:text="-"
-            app:layout_constraintStart_toStartOf="@+id/button4"
-            app:layout_constraintTop_toBottomOf="@+id/button4" />
-
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background"
-            android:text="-"
-            app:layout_constraintStart_toStartOf="@+id/button3"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:background="#98669b"
-            android:text="-"
-            app:layout_constraintStart_toStartOf="@+id/button2"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background"
-            android:text="-"
-            app:layout_constraintStart_toStartOf="@+id/button1"
-            app:layout_constraintTop_toBottomOf="@+id/button1" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:background="#98669b"
-            android:text="-"
-            app:layout_constraintStart_toEndOf="@+id/button2"
-            app:layout_constraintTop_toTopOf="@+id/button2" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="1"
-            android:background="@color/cardview_dark_background"
-            android:text="-"
-            app:layout_constraintStart_toEndOf="@+id/button1"
-            app:layout_constraintTop_toTopOf="@+id/button1" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
