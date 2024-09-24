@@ -1,9 +1,19 @@
 <resources>
     <string name="app_name" translatable="false">Quest</string>
     <string name="title_text" translatable="false">Найди мину!</string>
-    <string name="developer1" translatable="false">Разработчик Акимов Никита</string>
-    <string name="developer2" translatable="false">Разработчик Пачков Александр</string>
-    <string name="developer3" translatable="false">Разработчик Комаров Максим</string>
+    <string name="questions_text1" translatable="false">В первом столбце</string>
+    <string name="questions_text2" translatable="false">Во втором столбце</string>
+    <string name="questions_text3" translatable="false">В третьем столбце</string>
+    <string name="questions_text4" translatable="false">В первой строке</string>
+    <string name="questions_text5" translatable="false">Во второй строке</string>
+    <string name="questions_text6" translatable="false">В третьей строке</string>
+    <string name="questions_text7" translatable="false">По диагонали снизу-вверх</string>
+    <string name="questions_text8" translatable="false">По диагонали сверху-вниз</string>
+    <string name="questions_text9" translatable="false">По всем диагоналям</string>
+
+    <string name="developer1" translatable="false">Вы выбрали разработчика Акимова Никиту</string>
+    <string name="developer2" translatable="false">Вы выбрали разработчика Пачкова Александра</string>
+    <string name="developer3" translatable="false">Вы выбрали разработчика Комарова Максима</string>
     <string name="incorrect_toast" translatable="false">Спасибо за использование платформы Android</string>
 
 
