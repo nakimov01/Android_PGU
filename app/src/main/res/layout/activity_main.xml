@@ -17,101 +17,114 @@
         android:textColor="#FFFFFF"
         android:textSize="32dp" />
 
+    <TextView
+        android:id="@+id/questions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/questions_text7"
+        android:textColor="#FFFFFF"
+        android:textSize="26sp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_weight="1"
-            android:text="<"
-            android:textSize="28sp" />
-
-        <TextView
-            android:id="@+id/questions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="@string/questions_text7"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/button2"
+            android:id="@+id/prevBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
-            android:text=">"
-            android:textSize="28sp" />
+            android:background="@drawable/rounded_button_background"
+            android:text="@string/back"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_background"
+            android:text="@string/next"
+            android:textSize="22sp" />
     </LinearLayout>
 
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
         android:columnCount="3"
         android:gravity="center"
-        android:padding="5dp"
+        android:padding="3dp"
         android:rowCount="3">
 
         <!-- Ячейки -->
         <TextView
+            android:id="@+id/btn1"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="15dp"
             android:background="#9b5b9b" />
 
         <TextView
+            android:id="@+id/btn2"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="15dp"
             android:background="#a46fa4" />
 
         <TextView
+            android:id="@+id/btn3"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="15dp"
             android:background="#9b5b9b" />
 
         <TextView
+            android:id="@+id/btn4"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="15dp"
             android:background="#a46fa4" />
 
         <TextView
+            android:id="@+id/btn5"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="15dp"
             android:background="#9b5b9b" />
 
         <TextView
+            android:id="@+id/btn6"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="15dp"
             android:background="#a46fa4" />
 
         <TextView
+            android:id="@+id/btn7"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="15dp"
             android:background="#9b5b9b" />
 
         <TextView
+            android:id="@+id/btn8"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="15dp"
             android:background="#a46fa4" />
 
         <TextView
+            android:id="@+id/btn9"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_margin="15dp"
@@ -122,26 +135,25 @@
         android:id="@+id/developerNikita"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#FFFFFF"
         android:padding="16dp"
         android:text="Разработчик 1"
         android:textColor="#4b004e"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:cornerRadius="0dp" />
 
     <Button
         android:id="@+id/developerSasha"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#FFFFFF"
         android:padding="16dp"
         android:text="Разработчик 2"
         android:textColor="#4b004e"
-        android:textSize="24sp"
-        app:cornerRadius="0dp"
-        tools:ignore="TextContrastCheck" />
+        android:textSize="22sp"
+        app:cornerRadius="0dp" />
 
     <Button
         android:id="@+id/developerMax"
@@ -152,7 +164,7 @@
         android:padding="16dp"
         android:text="Разработчик 3"
         android:textColor="#4b004e"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:cornerRadius="0dp"
         tools:ignore="TextContrastCheck" />
 
