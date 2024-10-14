@@ -5,10 +5,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Color;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Button nikitaBtn;
+    private Button maxBtn;
+    private Button sashaBtn;
     private Button prevBtn, nextBtn;
     private TextView questionsTextView;
     private String[] questions;
@@ -22,6 +26,50 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        nikitaBtn = (Button) findViewById(R.id.developerNikita);
+        maxBtn = (Button) findViewById(R.id.developerSasha);
+        sashaBtn = (Button) findViewById(R.id.developerMax);
+
+        nikitaBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,
+                        R.string.developer1,
+                        Toast.LENGTH_SHORT).show();
+
+                nikitaBtn.setBackgroundResource(R.drawable.round_green_stroke);
+                maxBtn.setBackgroundResource(R.drawable.white_button_background);
+                sashaBtn.setBackgroundResource(R.drawable.white_button_background);
+                nikitaBtn.setBackgroundTintList(null);
+            }
+        });
+
+        maxBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,
+                        R.string.developer2,
+                        Toast.LENGTH_SHORT).show();
+                maxBtn.setBackgroundResource(R.drawable.round_green_stroke);
+                sashaBtn.setBackgroundResource(R.drawable.white_button_background);
+                nikitaBtn.setBackgroundResource(R.drawable.white_button_background);
+                maxBtn.setBackgroundTintList(null);
+            }
+        });
+
+        sashaBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,
+                        R.string.developer3,
+                        Toast.LENGTH_SHORT).show();
+                sashaBtn.setBackgroundResource(R.drawable.round_green_stroke);
+                maxBtn.setBackgroundResource(R.drawable.white_button_background);
+                nikitaBtn.setBackgroundResource(R.drawable.white_button_background);
+                sashaBtn.setBackgroundTintList(null);
+            }
+        });
+
         // Инициализация кнопок навигации
         prevBtn = findViewById(R.id.prevBtn);
         nextBtn = findViewById(R.id.nextBtn);
@@ -30,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         questionsTextView = findViewById(R.id.questions);
 
         // Инициализация массива вопросов
-        questions = new String[] {
+        questions = new String[]{
                 getString(R.string.questions_text1),
                 getString(R.string.questions_text2),
                 getString(R.string.questions_text3),
@@ -74,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 if (currentQuestionIndex > 0) {
                     currentQuestionIndex--;
                     questionsTextView.setText(questions[currentQuestionIndex]);
+                    resetGridBackgrounds(); // Сбрасываем фон ячеек
                 } else {
                     Toast.makeText(MainActivity.this, "Это первый вопрос", Toast.LENGTH_SHORT).show();
                 }
@@ -86,11 +135,25 @@ public class MainActivity extends AppCompatActivity {
                 if (currentQuestionIndex < questions.length - 1) {
                     currentQuestionIndex++;
                     questionsTextView.setText(questions[currentQuestionIndex]);
+                    resetGridBackgrounds(); // Сбрасываем фон ячеек
                 } else {
                     Toast.makeText(MainActivity.this, "Это последний вопрос", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    // Метод для сброса фона всех ячеек
+    private void resetGridBackgrounds() {
+        for (int i = 0; i < gridCells.length; i++) {
+            if (i % 2 == 0) {
+                // Четные индексы: устанавливаем серый фон
+                gridCells[i].setBackgroundColor(Color.parseColor("#a46fa4"));
+            } else {
+                // Нечетные индексы: устанавливаем белый фон
+                gridCells[i].setBackgroundColor(Color.parseColor("#9b5b9b"));
+            }
+        }
     }
 
     // Логика обработки кликов по ячейкам сетки

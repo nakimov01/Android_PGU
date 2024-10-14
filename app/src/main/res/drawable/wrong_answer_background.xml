@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#F44336" />  <!-- Красный цвет для неправильного ответа -->
+    <corners android:radius="8dp" />   <!-- Закругленные углы -->
+    <stroke
+        android:width="2dp"
+        android:color="#D32F2F" />      <!-- Темно-красная рамка -->
+</shape>
