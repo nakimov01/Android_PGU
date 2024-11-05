@@ -1,3 +1,4 @@
+// MainActivity.java
 package com.example.quest;
 
 import android.os.Bundle;
@@ -7,36 +8,46 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Color;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.quest.R;
 
 public class MainActivity extends AppCompatActivity {
-
-    private Button nikitaBtn;
-    private Button maxBtn;
-    private Button sashaBtn;
+    private Button nikitaBtn, maxBtn, sashaBtn;
     private Button prevBtn, nextBtn;
     private TextView questionsTextView;
-    private String[] questions;
+    private TextView[] gridCells = new TextView[9];
     private int currentQuestionIndex = 0;
 
-    // TextView для ячеек GridLayout
-    private TextView[] gridCells = new TextView[9];
+    // Массив вопросов (Model)
+    private Question[] questions = new Question[] {
+            new Question("В первом столбце", new int[]{0, 3, 6}),
+            new Question("Во втором столбце", new int[]{1, 4, 7}),
+            new Question("В третьем столбце", new int[]{2, 5, 8}),
+            new Question("В первой строке", new int[]{0, 1, 2}),
+            new Question("Во второй строке", new int[]{3, 4, 5}),
+            new Question("В третьей строке", new int[]{6, 7, 8}),
+            new Question("По диагонали снизу-вверх", new int[]{6, 4, 2}),
+            new Question("По всем диагоналям", new int[]{0, 4, 8, 2, 6}),
+            new Question("Среди всех ячеек", new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8})
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nikitaBtn = (Button) findViewById(R.id.developerNikita);
-        maxBtn = (Button) findViewById(R.id.developerSasha);
-        sashaBtn = (Button) findViewById(R.id.developerMax);
+        questionsTextView = findViewById(R.id.questions);
+        prevBtn = findViewById(R.id.prevBtn);
+        nextBtn = findViewById(R.id.nextBtn);
 
+        nikitaBtn = findViewById(R.id.developerNikita);
+        maxBtn = findViewById(R.id.developerSasha);
+        sashaBtn = findViewById(R.id.developerMax);
+
+        // Toast уведомления для каждой кнопки разработчика
         nikitaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
-                        R.string.developer1,
-                        Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(MainActivity.this, "Разработчик: Никита", Toast.LENGTH_SHORT).show();
                 nikitaBtn.setBackgroundResource(R.drawable.round_green_stroke);
                 maxBtn.setBackgroundResource(R.drawable.white_button_background);
                 sashaBtn.setBackgroundResource(R.drawable.white_button_background);
@@ -47,12 +58,10 @@ public class MainActivity extends AppCompatActivity {
         maxBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
-                        R.string.developer2,
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Разработчик: Саша", Toast.LENGTH_SHORT).show();
                 maxBtn.setBackgroundResource(R.drawable.round_green_stroke);
-                sashaBtn.setBackgroundResource(R.drawable.white_button_background);
                 nikitaBtn.setBackgroundResource(R.drawable.white_button_background);
+                sashaBtn.setBackgroundResource(R.drawable.white_button_background);
                 maxBtn.setBackgroundTintList(null);
             }
         });
@@ -60,9 +69,7 @@ public class MainActivity extends AppCompatActivity {
         sashaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
-                        R.string.developer3,
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Разработчик: Макс", Toast.LENGTH_SHORT).show();
                 sashaBtn.setBackgroundResource(R.drawable.round_green_stroke);
                 maxBtn.setBackgroundResource(R.drawable.white_button_background);
                 nikitaBtn.setBackgroundResource(R.drawable.white_button_background);
@@ -70,30 +77,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Инициализация кнопок навигации
-        prevBtn = findViewById(R.id.prevBtn);
-        nextBtn = findViewById(R.id.nextBtn);
+        // Инициализация ячеек сетки и логика вопросов
+        initGrid();
+        displayQuestion();
+        setNavigationListeners();
+    }
 
-        // Инициализация TextView для вопросов
-        questionsTextView = findViewById(R.id.questions);
-
-        // Инициализация массива вопросов
-        questions = new String[]{
-                getString(R.string.questions_text1),
-                getString(R.string.questions_text2),
-                getString(R.string.questions_text3),
-                getString(R.string.questions_text4),
-                getString(R.string.questions_text5),
-                getString(R.string.questions_text6),
-                getString(R.string.questions_text7),
-                getString(R.string.questions_text8),
-                getString(R.string.questions_text9)
-        };
-
-        // Отображаем первый вопрос
-        questionsTextView.setText(questions[currentQuestionIndex]);
-
-        // Инициализация ячеек сетки (TextView)
+    private void initGrid() {
         gridCells[0] = findViewById(R.id.btn1);
         gridCells[1] = findViewById(R.id.btn2);
         gridCells[2] = findViewById(R.id.btn3);
@@ -103,154 +93,60 @@ public class MainActivity extends AppCompatActivity {
         gridCells[6] = findViewById(R.id.btn7);
         gridCells[7] = findViewById(R.id.btn8);
         gridCells[8] = findViewById(R.id.btn9);
-
-        // Добавляем обработчики на ячейки сетки
         for (int i = 0; i < gridCells.length; i++) {
             final int index = i;
             gridCells[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    handleGridClick(index);
+                    checkAnswer(index);
                 }
             });
         }
+    }
 
-        // Обработка нажатий на кнопки "Назад" и "Вперед"
-        prevBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentQuestionIndex > 0) {
-                    currentQuestionIndex--;
-                    questionsTextView.setText(questions[currentQuestionIndex]);
-                    resetGridBackgrounds(); // Сбрасываем фон ячеек
-                } else {
-                    Toast.makeText(MainActivity.this, "Это первый вопрос", Toast.LENGTH_SHORT).show();
-                }
+    private void displayQuestion() {
+        questionsTextView.setText(questions[currentQuestionIndex].getQuestionText());
+    }
+
+    private void setNavigationListeners() {
+        prevBtn.setOnClickListener(v -> {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+                resetGridBackgrounds();
+            } else {
+                Toast.makeText(this, "Это первый вопрос", Toast.LENGTH_SHORT).show();
             }
         });
 
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentQuestionIndex < questions.length - 1) {
-                    currentQuestionIndex++;
-                    questionsTextView.setText(questions[currentQuestionIndex]);
-                    resetGridBackgrounds(); // Сбрасываем фон ячеек
-                } else {
-                    Toast.makeText(MainActivity.this, "Это последний вопрос", Toast.LENGTH_SHORT).show();
-                }
+        nextBtn.setOnClickListener(v -> {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+                resetGridBackgrounds();
+            } else {
+                Toast.makeText(this, "Это последний вопрос", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // Метод для сброса фона всех ячеек
     private void resetGridBackgrounds() {
         for (int i = 0; i < gridCells.length; i++) {
-            if (i % 2 == 0) {
-                // Четные индексы: устанавливаем серый фон
-                gridCells[i].setBackgroundColor(Color.parseColor("#a46fa4"));
-            } else {
-                // Нечетные индексы: устанавливаем белый фон
-                gridCells[i].setBackgroundColor(Color.parseColor("#9b5b9b"));
-            }
+            gridCells[i].setBackgroundColor(i % 2 == 0 ? Color.parseColor("#a46fa4") : Color.parseColor("#9b5b9b"));
         }
     }
 
-    // Логика обработки кликов по ячейкам сетки
-    private void handleGridClick(int index) {
-        String currentQuestion = questions[currentQuestionIndex];
-
-        // Проверка на соответствие текущему вопросу
-        switch (currentQuestion) {
-            case "В первом столбце":
-                if (index == 0 || index == 3 || index == 6) {
-                    Toast.makeText(this, "Правильно!", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.correct_answer_background);
-                } else {
-                    Toast.makeText(this, "Неправильно", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.wrong_answer_background);
-                }
+    private void checkAnswer(int index) {
+        int[] correctIndexes = questions[currentQuestionIndex].getCorrectIndexes();
+        boolean isCorrect = false;
+        for (int i : correctIndexes) {
+            if (i == index) {
+                isCorrect = true;
                 break;
-
-            case "Во втором столбце":
-                if (index == 1 || index == 4 || index == 7) {
-                    Toast.makeText(this, "Правильно!", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.correct_answer_background);
-                } else {
-                    Toast.makeText(this, "Неправильно", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.wrong_answer_background);
-                }
-                break;
-
-            case "В третьем столбце":
-                if (index == 2 || index == 5 || index == 8) {
-                    Toast.makeText(this, "Правильно!", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.correct_answer_background);
-                } else {
-                    Toast.makeText(this, "Неправильно", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.wrong_answer_background);
-                }
-                break;
-
-            case "В первой строке":
-                if (index == 0 || index == 1 || index == 2) {
-                    Toast.makeText(this, "Правильно!", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.correct_answer_background);
-                } else {
-                    Toast.makeText(this, "Неправильно", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.wrong_answer_background);
-                }
-                break;
-
-            case "Во второй строке":
-                if (index == 3 || index == 4 || index == 5) {
-                    Toast.makeText(this, "Правильно!", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.correct_answer_background);
-                } else {
-                    Toast.makeText(this, "Неправильно", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.wrong_answer_background);
-                }
-                break;
-
-            case "В третьей строке":
-                if (index == 6 || index == 7 || index == 8) {
-                    Toast.makeText(this, "Правильно!", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.correct_answer_background);
-                } else {
-                    Toast.makeText(this, "Неправильно", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.wrong_answer_background);
-                }
-                break;
-
-            case "По диагонали снизу-вверх":
-                if (index == 6 || index == 4 || index == 2) {
-                    Toast.makeText(this, "Правильно!", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.correct_answer_background);
-                } else {
-                    Toast.makeText(this, "Неправильно", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.wrong_answer_background);
-                }
-                break;
-
-            case "По всем диагоналям":
-                if (index == 0 || index == 4 || index == 8 || index == 2 || index == 6) {
-                    Toast.makeText(this, "Правильно!", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.correct_answer_background);
-                } else {
-                    Toast.makeText(this, "Неправильно", Toast.LENGTH_SHORT).show();
-                    gridCells[index].setBackgroundResource(R.drawable.wrong_answer_background);
-                }
-                break;
-
-            case "Среди всех ячеек":
-                // Допустим, любое нажатие верное для этого случая
-                Toast.makeText(this, "Правильно!", Toast.LENGTH_SHORT).show();
-                gridCells[index].setBackgroundResource(R.drawable.correct_answer_background);
-                break;
-
-            default:
-                Toast.makeText(this, "Ошибка!", Toast.LENGTH_SHORT).show();
-                break;
+            }
         }
+
+        gridCells[index].setBackgroundColor(isCorrect ? Color.GREEN : Color.RED);
+        Toast.makeText(this, isCorrect ? "Правильно!" : "Неправильно", Toast.LENGTH_SHORT).show();
     }
 }
