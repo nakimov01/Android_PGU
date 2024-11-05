@@ -17,18 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView[] gridCells = new TextView[9];
     private int currentQuestionIndex = 0;
 
-    // Массив вопросов (Model)
-    private Question[] questions = new Question[] {
-            new Question("В первом столбце", new int[]{0, 3, 6}),
-            new Question("Во втором столбце", new int[]{1, 4, 7}),
-            new Question("В третьем столбце", new int[]{2, 5, 8}),
-            new Question("В первой строке", new int[]{0, 1, 2}),
-            new Question("Во второй строке", new int[]{3, 4, 5}),
-            new Question("В третьей строке", new int[]{6, 7, 8}),
-            new Question("По диагонали снизу-вверх", new int[]{6, 4, 2}),
-            new Question("По всем диагоналям", new int[]{0, 4, 8, 2, 6}),
-            new Question("Среди всех ячеек", new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8})
-    };
+    // Получаем вопросы из модели
+    private Question[] questions = Question.getQuestions();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Инициализация ячеек сетки и логика вопросов
         initGrid();
         displayQuestion();
         setNavigationListeners();
