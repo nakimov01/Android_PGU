@@ -1,0 +1,195 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4b004e"
+    tools:context=".MainActivity">
+
+    <!-- Заголовок -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/title_text"
+        android:textColor="#FFFFFF"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Вопрос -->
+    <TextView
+        android:id="@+id/questions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/questions_text7"
+        android:textColor="#FFFFFF"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <!-- Сетка -->
+
+    <!-- Кнопки навигации -->
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:columnCount="3"
+        android:padding="3dp"
+        android:rowCount="3"
+        app:layout_constraintEnd_toEndOf="@+id/questions"
+        app:layout_constraintStart_toStartOf="@+id/questions"
+        app:layout_constraintTop_toBottomOf="@id/questions">
+
+        <!-- Ячейки -->
+        <TextView
+            android:id="@+id/btn1"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            android:background="#9b5b9b" />
+
+        <TextView
+            android:id="@+id/btn2"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            android:background="#a46fa4" />
+
+        <TextView
+            android:id="@+id/btn3"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            android:background="#9b5b9b" />
+
+        <TextView
+            android:id="@+id/btn4"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            android:background="#a46fa4" />
+
+        <TextView
+            android:id="@+id/btn5"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            android:background="#9b5b9b" />
+
+        <TextView
+            android:id="@+id/btn6"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            android:background="#a46fa4" />
+
+        <TextView
+            android:id="@+id/btn7"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            android:background="#9b5b9b" />
+
+        <TextView
+            android:id="@+id/btn8"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            android:background="#a46fa4" />
+
+        <TextView
+            android:id="@+id/btn9"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="5dp"
+            android:background="#9b5b9b" />
+    </GridLayout>
+
+    <Button
+        android:id="@+id/prevBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_button_background"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/back"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/nextBtn"
+        app:layout_constraintStart_toStartOf="@+id/nextBtn"
+        app:layout_constraintTop_toBottomOf="@+id/nextBtn" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_button_background"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/next"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/prevBtn"
+        app:layout_constraintEnd_toStartOf="@+id/gridLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/questions" />
+
+    <!-- Кнопки разработчиков -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/gridLayout"
+        app:layout_constraintTop_toTopOf="@+id/gridLayout">
+
+        <Button
+            android:id="@+id/developerNikita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:padding="16dp"
+            android:text="Разработчик 1"
+            android:textColor="#4b004e"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/developerSasha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FFFFFF"
+            android:padding="16dp"
+            android:text="Разработчик 2"
+            android:textColor="#4b004e"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/developerNikita"
+            app:layout_constraintTop_toBottomOf="@+id/developerNikita" />
+
+        <Button
+            android:id="@+id/developerMax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FFFFFF"
+            android:padding="16dp"
+            android:text="Разработчик 3"
+            android:textColor="#4b004e"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/developerSasha"
+            app:layout_constraintTop_toBottomOf="@+id/developerSasha" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

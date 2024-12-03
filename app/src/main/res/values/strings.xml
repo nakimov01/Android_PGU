@@ -7,16 +7,15 @@
     <string name="questions_text4" translatable="false">В первой строке</string>
     <string name="questions_text5" translatable="false">Во второй строке</string>
     <string name="questions_text6" translatable="false">В третьей строке</string>
-    <string name="questions_text7" translatable="false">По диагонали снизу-вверх</string>
-    <string name="questions_text8" translatable="false">Среди всех ячеек</string>
-    <string name="questions_text9" translatable="false">По всем диагоналям</string>
+    <string name="questions_text7" translatable="false">На побочной диагонали </string>
+    <string name="questions_text8" translatable="false">По всем диагоналям</string>
+    <string name="questions_text9" translatable="false">Среди всех ячеек</string>
 
-    <string name="developer1" translatable="false">Вы выбрали разработчика Акимова Никиту</string>
-    <string name="developer2" translatable="false">Вы выбрали разработчика Пачкова Александра</string>
-    <string name="developer3" translatable="false">Вы выбрали разработчика Комарова Максима</string>
-    <string name="incorrect_toast" translatable="false">Спасибо за использование платформы Android</string>
-    <string name="back">предыдущее задание</string>
-    <string name="next">следующие задание</string>
+    <string name="developer1" translatable="false">Акимов Никита</string>
+    <string name="developer2" translatable="false">Пачков Александр</string>
+    <string name="developer3" translatable="false">Комаров Максим</string>
+    <string name="back" translatable="false"> предыдущее задание </string>
+    <string name="next" translatable="false"> следующие задание </string>
 
 
 </resources>
