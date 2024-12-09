@@ -134,35 +134,46 @@
     <Button
         android:id="@+id/developerNikita"
         android:layout_width="290dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#FFFFFF"
-        android:padding="16dp"
         android:text="Разработчик 1"
         android:textColor="#4b004e"
         android:textSize="22sp"
-        app:cornerRadius="0dp" />
+        app:cornerRadius="0dp"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/developerSasha"
         android:layout_width="290dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#FFFFFF"
-        android:padding="16dp"
         android:text="Разработчик 2"
         android:textColor="#4b004e"
         android:textSize="22sp"
-        app:cornerRadius="0dp" />
+        app:cornerRadius="0dp"
+        tools:ignore="TextContrastCheck"
+        />
 
     <Button
         android:id="@+id/developerMax"
         android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_height="50dp"
         android:backgroundTint="#FFFFFF"
-        android:padding="16dp"
         android:text="Разработчик 3"
+        android:textColor="#4b004e"
+        android:textSize="22sp"
+        app:cornerRadius="0dp"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/helpButton"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#FFFFFF"
+        android:layout_marginTop="25dp"
+        android:text="Помощь"
         android:textColor="#4b004e"
         android:textSize="22sp"
         app:cornerRadius="0dp"

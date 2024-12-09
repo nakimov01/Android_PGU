@@ -150,7 +150,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/gridLayout"
-        app:layout_constraintTop_toTopOf="@+id/gridLayout">
+        app:layout_constraintTop_toTopOf="@+id/questions">
 
         <Button
             android:id="@+id/developerNikita"
@@ -189,6 +189,22 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/developerSasha"
             app:layout_constraintTop_toBottomOf="@+id/developerSasha" />
+
+        <Button
+            android:id="@+id/helpButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Помощь"
+            android:textColor="#4b004e"
+            android:textSize="16sp"
+            app:cornerRadius="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/developerMax"
+            app:layout_constraintStart_toEndOf="@+id/developerMax"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/developerMax"
+            tools:ignore="TextContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

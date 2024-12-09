@@ -10,12 +10,22 @@
     <string name="questions_text7" translatable="false">На побочной диагонали </string>
     <string name="questions_text8" translatable="false">По всем диагоналям</string>
     <string name="questions_text9" translatable="false">Среди всех ячеек</string>
+    <string name="help_1">Первая кнопка в первой строке</string>
+    <string name="help_2">Вторая кнопка в первой строке</string>
+    <string name="help_3">Третья  кнопка в первой строке</string>
+    <string name="help_4">Первая кнопка во второй строке</string>
+    <string name="help_5">Вторая кнопка во второй строке</string>
+    <string name="help_6">Третья кнопка во второй строке</string>
+    <string name="help_7">Первая кнопка в третьей строке</string>
+    <string name="help_8">Вторая кнопка в третьей строке</string>
+    <string name="help_9">Третья кнопка в третьей строке</string>
 
     <string name="developer1" translatable="false">Акимов Никита</string>
     <string name="developer2" translatable="false">Пачков Александр</string>
     <string name="developer3" translatable="false">Комаров Максим</string>
     <string name="back" translatable="false"> предыдущее задание </string>
     <string name="next" translatable="false"> следующие задание </string>
+    <string name="title_activity_help">HelpActivity</string>
 
 
 </resources>
