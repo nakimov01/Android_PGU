@@ -4,13 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.view.View;
 
 public class HelpActivity extends AppCompatActivity {
     public static final String EXTRA_INDEX_OF_QUESTION = "com.example.quest.index";
-    private static final String INDEX = "index";
-    private static final String KEY_HELP_TEXT = "help_text"; // Ключ для сохранения текста
+    private static final String KEY_HELP_TEXT = "help_text";
+    private static final String TAG = "HelpActivity";
 
     private int mineIndex;
     private TextView mHelpText;
@@ -26,7 +27,13 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
-        mineIndex = getIntent().getIntExtra(EXTRA_INDEX_OF_QUESTION, 0);
+        // Восстановление mineIndex
+        if (savedInstanceState != null) {
+            mineIndex = savedInstanceState.getInt(EXTRA_INDEX_OF_QUESTION, 0);
+        } else {
+            mineIndex = getIntent().getIntExtra(EXTRA_INDEX_OF_QUESTION, 0);
+        }
+        Log.d(TAG, "Получен mineIndex: " + mineIndex);
 
         mHelpText = findViewById(R.id.help_text);
         mHelpButton = findViewById(R.id.helpButton2);
@@ -40,29 +47,18 @@ public class HelpActivity extends AppCompatActivity {
             }
         }
 
-        mHelpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Отображаем текст помощи для переданного индекса
-                mHelpText.setText(getString(mHelpArray[mineIndex]));
-            }
+        mHelpButton.setOnClickListener(v -> {
+            mHelpText.setText(getString(mHelpArray[mineIndex]));
         });
 
-        mHelpButtonExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Закрываем активность
-                finish();
-            }
-        });
+        mHelpButtonExit.setOnClickListener(v -> finish());
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-
-        // Сохраняем индекс и текущий текст
-        savedInstanceState.putInt(EXTRA_INDEX_OF_QUESTION, mineIndex);
+        Log.d(TAG, "onSaveInstanceState вызван");
+        savedInstanceState.putInt(EXTRA_INDEX_OF_QUESTION, mineIndex); // Сохранение индекса
         if (mHelpText != null) {
             savedInstanceState.putString(KEY_HELP_TEXT, mHelpText.getText().toString());
         }

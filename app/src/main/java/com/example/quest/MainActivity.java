@@ -70,12 +70,14 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             currentQuestionIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             gridStates = savedInstanceState.getIntArray(KEY_GRID_STATES);
+            mineIndex = savedInstanceState.getInt("mineIndex"); // Восстановление индекса мины
             restoreGridBackgrounds(); // Восстановление фоновых цветов ячеек
+        } else {
+            generateMine(); // Если данных нет, генерируем заново
         }
 
-        // Отображение текущего вопроса и генерация случайной мины
+        // Отображение текущего вопроса
         displayQuestion();
-        generateMine();
 
         // Настройка слушателей для кнопок навигации
         setNavigationListeners();
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, 0);
         });
     }
+
 
     // Инициализация сетки с ячейками
     private void initGrid() {
@@ -185,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_INDEX, currentQuestionIndex);
         outState.putIntArray(KEY_GRID_STATES, gridStates);
+        outState.putInt("mineIndex", mineIndex);
         Log.d(TAG, "onSaveInstanceState вызван");
     }
 
