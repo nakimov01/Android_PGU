@@ -1,10 +1,8 @@
-// MainActivity.java
 package com.example.quest;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,84 +12,87 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    // Тег для логирования событий жизненного цикла и отладки
+    // Тег для логирования (используется для отладки и мониторинга жизненного цикла)
     private static final String TAG = "MainActivity";
 
-    // Ключи для сохранения и восстановления состояния активности
-    private static final String KEY_INDEX = "currentQuestionIndex";
-    private static final String KEY_GRID_STATES = "gridStates";
+    // Ключи для сохранения состояния активности
+    private static final String KEY_INDEX = "currentQuestionIndex"; // Текущий индекс вопроса
+    private static final String KEY_GRID_STATES = "gridStates"; // Состояния ячеек сетки
+    private static final String HELP_IS_USED = "help_used"; // Флаг использования помощи
 
     // Элементы пользовательского интерфейса
-    private Button nikitaBtn, maxBtn, sashaBtn, mHelpButton;
+    private Button mHelpButton;
     private Button prevBtn, nextBtn;
     private TextView questionsTextView;
-    private TextView[] gridCells = new TextView[9]; // Массив для представления ячеек сетки
+    private TextView[] gridCells = new TextView[9];
 
-    // Переменные состояния
+    // Переменные для состояния
     private int currentQuestionIndex = 0; // Индекс текущего вопроса
-    private int[] gridStates = new int[9]; // Состояния ячеек (0: по умолчанию, 1: правильно, 2: неправильно)
-    private int mineIndex; // Индекс случайно выбранной мины
+    private int[] gridStates = new int[9]; // Массив для хранения состояния каждой ячейки
+    private int mineIndex; // Индекс случайной "мины" (правильный ответ)
+
+    private boolean isHelp = false; // Флаг, указывающий, использовалась ли помощь
 
     // Массив вопросов
     private Question[] questions;
+
+    //------------------------------------------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Инициализация массива вопросов
-        questions = Question.getQuestions(this);
-
         Log.d(TAG, "onCreate вызван");
 
-        // Инициализация элементов пользовательского интерфейса
+        // Инициализация массива вопросов с использованием текущего контекста
+        questions = Question.getQuestions(this);
+
         questionsTextView = findViewById(R.id.questions);
         prevBtn = findViewById(R.id.prevBtn);
         nextBtn = findViewById(R.id.nextBtn);
+        mHelpButton = findViewById(R.id.helpButton);
 
-        // Инициализация кнопок разработчиков
-        nikitaBtn = findViewById(R.id.developerNikita);
-        maxBtn = findViewById(R.id.developerSasha);
-        sashaBtn = findViewById(R.id.developerMax);
-
-        // Добавление уведомлений для кнопок разработчиков
+        Button nikitaBtn = findViewById(R.id.developerNikita);
+        Button maxBtn = findViewById(R.id.developerSasha);
+        Button sashaBtn = findViewById(R.id.developerMax);
+        // Обработчики для кнопок с именами разработчиков
         nikitaBtn.setOnClickListener(v -> showDeveloperToast(getString(R.string.developer1)));
         maxBtn.setOnClickListener(v -> showDeveloperToast(getString(R.string.developer2)));
         sashaBtn.setOnClickListener(v -> showDeveloperToast(getString(R.string.developer3)));
 
-        // Инициализация кнопки помощи
-        mHelpButton = findViewById(R.id.helpButton);
-
-        // Инициализация сетки ячеек
+        // Инициализация сетки (привязка ячеек)
         initGrid();
 
         // Восстановление состояния активности, если оно было сохранено
         if (savedInstanceState != null) {
-            currentQuestionIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-            gridStates = savedInstanceState.getIntArray(KEY_GRID_STATES);
-            mineIndex = savedInstanceState.getInt("mineIndex"); // Восстановление индекса мины
-            restoreGridBackgrounds(); // Восстановление фоновых цветов ячеек
+            currentQuestionIndex = savedInstanceState.getInt(KEY_INDEX, 0); // Индекс текущего вопроса
+            gridStates = savedInstanceState.getIntArray(KEY_GRID_STATES); // состояниея ячеек
+            isHelp = savedInstanceState.getBoolean(HELP_IS_USED, false); // флаг помощи
+            mineIndex = savedInstanceState.getInt("mineIndex"); // индекс мины
+            restoreGridBackgrounds(); // востановление фонов ячеек
         } else {
-            generateMine(); // Если данных нет, генерируем заново
+            generateMine(); // если состояние не сохранено генерируем новую мину
         }
 
-        // Отображение текущего вопроса
-        displayQuestion();
+        displayQuestion(); // отображение текущего вопроса
+        setNavigationListeners(); // настройка кнопок "Назад" и "Вперед"
 
-        // Настройка слушателей для кнопок навигации
-        setNavigationListeners();
-
-        // Настройка кнопки помощи
+        // Настройка кнопки "Помощь"
         mHelpButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, HelpActivity.class);
-            intent.putExtra(HelpActivity.EXTRA_INDEX_OF_QUESTION, mineIndex); // Передача случайного индекса
-            startActivityForResult(intent, 0);
+            intent.putExtra(HelpActivity.EXTRA_INDEX_OF_QUESTION, mineIndex); // передача индекс мины
+            startActivityForResult(intent, 1); // результат из HelpActivity
         });
     }
 
+    //------------------------------------------------------------------------------------
+    // тосты
+    private void showDeveloperToast(String developerName) {
+        Toast.makeText(this, "Разработчик: " + developerName, Toast.LENGTH_SHORT).show();
+    }
+    //------------------------------------------------------------------------------------
 
-    // Инициализация сетки с ячейками
+    // инициализация сетки (привязка ячеек)
     private void initGrid() {
         gridCells[0] = findViewById(R.id.btn1);
         gridCells[1] = findViewById(R.id.btn2);
@@ -103,26 +104,28 @@ public class MainActivity extends AppCompatActivity {
         gridCells[7] = findViewById(R.id.btn8);
         gridCells[8] = findViewById(R.id.btn9);
 
-        // Назначение обработчиков нажатий для каждой ячейки
+        // устанавливаем обработчики кликов для каждой ячейки
         for (int i = 0; i < gridCells.length; i++) {
             final int index = i;
             gridCells[i].setOnClickListener(v -> checkAnswer(index));
         }
     }
 
-    // Отображение текста текущего вопроса
+    //------------------------------------------------------------------------------------
+
+    // отображение текста текущего вопроса
     private void displayQuestion() {
         questionsTextView.setText(questions[currentQuestionIndex].getQuestionText());
     }
 
-    // Настройка слушателей для кнопок "Назад" и "Вперед"
+    // настройка кнопок назад и вперед
     private void setNavigationListeners() {
         prevBtn.setOnClickListener(v -> {
             if (currentQuestionIndex > 0) {
                 currentQuestionIndex--;
-                displayQuestion();
-                resetGridBackgrounds(); // Сброс фона ячеек
-                generateMine(); // Генерация новой мины
+                displayQuestion(); // Показываем новый вопрос
+                resetGridBackgrounds(); // Сбрасываем фоны ячеек
+                generateMine(); // Генерируем новую мину
             } else {
                 Toast.makeText(this, "Это первый вопрос", Toast.LENGTH_SHORT).show();
             }
@@ -131,24 +134,25 @@ public class MainActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(v -> {
             if (currentQuestionIndex < questions.length - 1) {
                 currentQuestionIndex++;
-                displayQuestion();
-                resetGridBackgrounds(); // Сброс фона ячеек
-                generateMine(); // Генерация новой мины
+                displayQuestion(); // Показываем новый вопрос
+                resetGridBackgrounds(); // Сбрасываем фоны ячеек
+                generateMine(); // Генерируем новую мину
             } else {
                 Toast.makeText(this, "Это последний вопрос", Toast.LENGTH_SHORT).show();
             }
         });
     }
+    //------------------------------------------------------------------------------------
 
-    // Сброс фоновых цветов ячеек на значения по умолчанию
+    // сброс фонов ячеек
     private void resetGridBackgrounds() {
         for (int i = 0; i < gridCells.length; i++) {
-            gridStates[i] = 0; // Сброс состояния
+            gridStates[i] = 0; // Обнуляем состояния
             gridCells[i].setBackgroundColor(i % 2 == 0 ? Color.parseColor("#9b5b9b") : Color.parseColor("#a46fa4"));
         }
     }
 
-    // Восстановление фоновых цветов ячеек из сохраненного состояния
+    // восстановление фонов ячеек из сохраненного состояния
     private void restoreGridBackgrounds() {
         for (int i = 0; i < gridCells.length; i++) {
             if (gridStates[i] == 1) {
@@ -161,45 +165,57 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Генерация случайной мины для текущего вопроса
+    //------------------------------------------------------------------------------------
+
+    // Генерация случайного индекса "мины"
     private void generateMine() {
         int[] validIndexes = questions[currentQuestionIndex].getCorrectIndexes();
         Random random = new Random();
         mineIndex = validIndexes[random.nextInt(validIndexes.length)];
     }
 
-    // Проверка, правильная ли ячейка была нажата
+    //------------------------------------------------------------------------------------
+
+    // Проверка ответа
     private void checkAnswer(int index) {
         boolean isCorrect = (index == mineIndex);
 
-        gridStates[index] = isCorrect ? 1 : 2; // Сохранение состояния ячейки
+        gridStates[index] = isCorrect ? 1 : 2; // Сохраняем состояние ячейки
         gridCells[index].setBackgroundColor(isCorrect ? Color.GREEN : Color.RED);
-        Toast.makeText(this, isCorrect ? "Вы нашли мину!" : "Мимо!", Toast.LENGTH_SHORT).show();
+
+        String message = isCorrect ? "Вы нашли мину!" : "Попробуйте еще раз.";
+
+        // Если использовалась помощь
+        if (isHelp && isCorrect) {
+            message += " В следующий раз попробуйте выбрать мину самостоятельно.";
+        }
+
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        isHelp = false; // Сбрасываем флаг
     }
 
-    // Показ уведомления с именем разработчика
-    private void showDeveloperToast(String developerName) {
-        Toast.makeText(this, "Разработчик: " + developerName, Toast.LENGTH_SHORT).show();
-    }
+    //------------------------------------------------------------------------------------
 
-    // Сохранение состояния активности перед сменой конфигурации
+    // Сохранение состояния активности
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(KEY_INDEX, currentQuestionIndex);
-        outState.putIntArray(KEY_GRID_STATES, gridStates);
-        outState.putInt("mineIndex", mineIndex);
-        Log.d(TAG, "onSaveInstanceState вызван");
+        outState.putInt(KEY_INDEX, currentQuestionIndex); // Сохраняем индекс вопроса
+        outState.putIntArray(KEY_GRID_STATES, gridStates); // Сохраняем состояния ячеек
+        outState.putInt("mineIndex", mineIndex); // Сохраняем индекс мины
+        outState.putBoolean(HELP_IS_USED, isHelp); // Сохраняем флаг помощи
     }
 
-    // Восстановление состояния активности
+    // Обработка результата из HelpActivity
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.d(TAG, "onRestoreInstanceState вызван");
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            isHelp = data.getBooleanExtra(HelpActivity.EXTRA_HELP_WAS_USED, false);
+        }
     }
 
-    // Методы жизненного цикла для логирования
+    // жизненный цикл
     @Override
     protected void onStart() {
         super.onStart();
